@@ -1,0 +1,11 @@
+<!-- prideti_augalu_vieta.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Pridėti augalo vietą</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ vieta_forma.as_p }}
+    <button type="submit">Pridėti</button>
+  </form>
+{% endblock %}

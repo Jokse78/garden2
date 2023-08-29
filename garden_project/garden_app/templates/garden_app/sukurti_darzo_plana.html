@@ -1,0 +1,11 @@
+<!-- sukurti_darzo_plana.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Sukurti daržo planą</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ plano_forma.as_p }}
+    <button type="submit">Sukurti</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,18 @@
+<!-- augalu_katalogas.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Augalų katalogas</h2>
+  <ul>
+    {% for augalas in augalai %}
+      <li>
+        <h3>{{ augalas.pavadinimas }}</h3>
+        <img src="{{ augalas.nuotrauka.url }}" alt="{{ augalas.pavadinimas }}">
+        <p>{{ augalas.aprasymas }}</p>
+        <p>{{ augalas.auginimo_informacija }}</p>
+      </li>
+    {% empty %}
+      <p>Nėra įrašų.</p>
+    {% endfor %}
+  </ul>
+{% endblock %}
