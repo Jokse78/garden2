@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from .forms import SekluApskaiciavimoForma, AugaluBuklesForma, AugalasForma, DarzoPlanasForma, AugaluVietaForma
-from .models import Veisle, Darzas, AugaluBukle, Augalas, DarzoPlanas, AugaluVieta
+from .forms import SekluApskaiciavimoForma, AugaluBuklesForma, AugalasForma, DarzoPlanasForma, AugaluVietaForma, FailoIkelimasForma, PranesimoSiuntimoForma
+from .models import Veisle, Darzas, AugaluBukle, Augalas, DarzoPlanas, AugaluVieta, Failas, Pranesimas, Sodinimas
 from django.conf import settings
 from twilio.rest import Client
 from django.core.mail import send_mail
-
+import matplotlib.pyplot as plt
 def index(request):
     return render(request, 'garden_app/index.html')
 def veisles_sarasas(request):
@@ -164,3 +164,95 @@ def prideti_augalu_vieta(request, darzo_planas_id):
 
     return render(request, 'vaisiu_sodinimas/prideti_augalu_vieta.html',
                   {'vieta_forma': vieta_forma, 'darzo_planas': darzo_planas})
+
+# Vaizdas, kad vartotojai galėtų įkelti failus į savo daržus ir augalus.
+def ikelti_faila_darzui(request, darzas_id):
+    darzas = Darzas.objects.get(id=darzas_id)
+
+    if request.method == 'POST':
+        forma = FailoIkelimasForma(request.POST, request.FILES)
+        if forma.is_valid():
+            failas = forma.save(commit=False)
+            failas.darzas = darzas
+            failas.save()
+            return redirect('ikelti_faila_darzui', darzas_id=darzas_id)
+    else:
+        forma = FailoIkelimasForma()
+
+    return render(request, 'vaisiu_sodinimas/ikelti_faila.html', {'forma': forma, 'darzas': darzas})
+
+
+def ikelti_faila_augalui(request, augalas_id):
+    augalas = Augalas.objects.get(id=augalas_id)
+
+    if request.method == 'POST':
+        forma = FailoIkelimasForma(request.POST, request.FILES)
+        if forma.is_valid():
+            failas = forma.save(commit=False)
+            failas.augalas = augalas
+            failas.save()
+            return redirect('ikelti_faila_augalui', augalas_id=augalas_id)
+    else:
+        forma = FailoIkelimasForma()
+
+    return render(request, 'vaisiu_sodinimas/ikelti_faila.html', {'forma': forma, 'augalas': augalas})
+
+# Vaizdas, kuris leidžia administratoriui valdyti turinį ir siųsti pranešimus.
+def valdyti_turini(request):
+    # Čia galite įrašyti logiką, kaip administratorius valdo turinį
+    return render(request, 'vaisiu_sodinimas/valdyti_turini.html')
+
+def siusti_pranesima(request):
+    if request.method == 'POST':
+        forma = PranesimoSiuntimoForma(request.POST)
+        if forma.is_valid():
+            pranesimas = forma.save(commit=False)
+            pranesimas.siuntejas = request.user
+            pranesimas.save()
+            return redirect('siusti_pranesima')
+    else:
+        forma = PranesimoSiuntimoForma()
+
+    return render(request, 'vaisiu_sodinimas/siusti_pranesima.html', {'forma': forma})
+
+def dokumentacija(request):
+    return render(request, 'vaisiu_sodinimas/dokumentacija.html')
+# Vaizdas, kuris leidžia vartotojams pasiekti dokumentacijos ir pagalbos puslapius.
+def pagalba(request):
+    if request.method == 'POST':
+        # Čia galite įrašyti logiką, kaip tvarkyti gautas užklausas
+        pass
+    return render(request, 'vaisiu_sodinimas/pagalba.html')
+# Vaizdas, kuris parodys ataskaitas ir grafikus apie naudojimo statistiką.
+# Pavyzdžiui, galite naudoti biblioteką matplotlib Python programavimo kalboje grafikams kurti.
+# views.py
+def ataskaita(request):
+    darzai = Darzas.objects.filter(savininkas=request.user)
+    sodinimai = Sodinimas.objects.filter(darzas__in=darzai)
+
+    # Suskaičiuoti sėklų išaugimo dinamiką pagal datas ir plotą
+    data_ir_plotas = {}
+    for sodinimas in sodinimai:
+        if sodinimas.data not in data_ir_plotas:
+            data_ir_plotas[sodinimas.data] = sodinimas.darzas.plotas
+        else:
+            data_ir_plotas[sodinimas.data] += sodinimas.darzas.plotas
+
+    # Kurti grafiką
+    data = list(data_ir_plotas.keys())
+    plotas = list(data_ir_plotas.values())
+    plt.plot(data, plotas)
+    plt.xlabel('Data')
+    plt.ylabel('Augimo plotas')
+    plt.title('Sėklų augimo dinamika')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    # Išsaugoti grafiką kaip vaizdą
+    grafiko_kelias = 'vaisiu_sodinimas/static/vaisiu_sodinimas/grafikas.png'
+    plt.savefig(grafiko_kelias)
+    plt.close()
+
+    return render(request, 'vaisiu_sodinimas/ataskaita.html', {'grafiko_kelias': grafiko_kelias})
+
+

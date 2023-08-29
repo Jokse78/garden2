@@ -1,0 +1,11 @@
+<!-- ikelti_faila.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Įkelti failą</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ forma.as_p }}
+    <button type="submit">Įkelti</button>
+  </form>
+{% endblock %}

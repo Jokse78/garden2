@@ -72,3 +72,35 @@ class AugaluVieta(models.Model):
     augalas = models.ForeignKey(Augalas, on_delete=models.CASCADE)  # Nurodykite, iš kurio modelio yra "Augalas"
     x_koord = models.PositiveIntegerField()
     y_koord = models.PositiveIntegerField()
+
+
+# Pridėta laukai savo modeliuose, skirti failams saugoti.
+class Failas(models.Model):
+    pavadinimas = models.CharField(max_length=100)
+    failas = models.FileField(upload_to='failai/')
+    darzas = models.ForeignKey(Darzas, on_delete=models.CASCADE, blank=True, null=True)
+    augalas = models.ForeignKey(Augalas, on_delete=models.CASCADE, blank=True, null=True)
+
+# Modelis, kuris saugoja informaciją apie pranešimu.
+class Pranesimas(models.Model):
+    siuntejas = models.ForeignKey(User, on_delete=models.CASCADE)
+    gavetojas = models.ForeignKey(User, on_delete=models.CASCADE, related_name='gauti_pranesimai')
+    tema = models.CharField(max_length=100)
+    tekstas = models.TextField()
+    data = models.DateTimeField(auto_now_add=True)
+    perskaitytas = models.BooleanField(default=False)
+
+# Pirmiausia, turite sukurti duomenų struktūrą ir būdus,
+# kaip surinkti reikiamus duomenis apie vartotojų daržus ir sėklų išaugimo dinamiką.
+# Jūsų modeliuose turite įtraukti laukus, kuriuose saugosite šią informaciją.
+class Darzas(models.Model):
+    savininkas = models.ForeignKey(User, on_delete=models.CASCADE)
+    plotas = models.DecimalField(max_digits=5, decimal_places=2)
+    # Kitos laukų deklaracijos
+
+class Sodinimas(models.Model):
+    darzas = models.ForeignKey(Darzas, on_delete=models.CASCADE)
+    data = models.DateField()
+    seldiniu_skaicius = models.PositiveIntegerField()
+    # Kitos laukų deklaracijos
+

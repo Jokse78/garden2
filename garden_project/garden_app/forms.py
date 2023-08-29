@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profilis, Veisle, AugaluBukle, Augalas, DarzoPlanas, AugaluVieta
+from .models import Profilis, Veisle, AugaluBukle, Augalas, DarzoPlanas, AugaluVieta, Failas, Pranesimas
 
 # Forma, kuri ledžia vartotojams redaguoti savo profilį. Ši forma turi laukus, atitinkančius Profilis modelio laukus.
 class ProfilisRedagavimoForma(forms.ModelForm):
@@ -33,4 +33,14 @@ class AugaluVietaForma(forms.ModelForm):
     class Meta:
         model = AugaluVieta
         fields = ['augalas', 'x_koord', 'y_koord']
+# Formą, kurioje leidžiama vartotojui įkelti failus.
+class FailoIkelimasForma(forms.ModelForm):
+    class Meta:
+        model = Failas
+        fields = ['pavadinimas', 'failas']
+# Formą, kuri leidžia administratoriui siųsti pranešimus:
+class PranesimoSiuntimoForma(forms.ModelForm):
+    class Meta:
+        model = Pranesimas
+        fields = ['gavetojas', 'tema', 'tekstas']
 
