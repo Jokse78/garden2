@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profilis, Veisle, AugaluBukle, Augalas, DarzoPlanas, AugaluVieta, Failas, Pranesimas
+from .models import Profilis, Veisle, AugaluBukle, Augalas, DarzoPlanas, AugaluVieta, Failas, Pranesimas, Sodinimas
 
 # Forma, kuri ledžia vartotojams redaguoti savo profilį. Ši forma turi laukus, atitinkančius Profilis modelio laukus.
 class ProfilisRedagavimoForma(forms.ModelForm):
@@ -21,7 +21,7 @@ class AugaluBuklesForma(forms.ModelForm):
 class AugalasForma(forms.ModelForm):
     class Meta:
         model = Augalas
-        fields = ['pavadinimas', 'nuotrauka', 'aprasymas', 'augimo_informacija']
+        fields = ['pavadinimas', 'nuotrauka', 'aprasymas', 'auginimo_informacija']
 
 # Formą, kuri leidžia vartotojams sukurti daržo planą ir pažymėti augalų buvimo vietas.
 class DarzoPlanasForma(forms.ModelForm):

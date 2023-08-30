@@ -8,7 +8,7 @@ class Veisle(models.Model):
     zeme = models.CharField(max_length=100)
     iranga = models.CharField(max_length=200)
     siltnamis_laukas = models.CharField(max_length=50)
-    sėklų_kiekis_per_arą = models.DecimalField(max_digits=5, decimal_places=2)
+    seklu_kiekis_per_ara = models.DecimalField(max_digits=5, decimal_places=2)
 class Darzas(models.Model):
     savininkas = models.ForeignKey(User, on_delete=models.CASCADE)
     plotas_arais = models.FloatField()

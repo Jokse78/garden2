@@ -1,0 +1,16 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="irankiai.naudotojo_profilis.views.naudotojo_profilis" />
+          <option value="Python.test_keliamieji.keliamieji_metai" />
+          <option value="Python.test_keliamieji.keliamieji" />
+          <option value="garden_project.garden_project.views" />
+          <option value="garden_project.garden_app.tasks.django_cron" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
