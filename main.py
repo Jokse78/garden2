@@ -7,32 +7,30 @@
 # Kada sodins sodinukus, kada persodins į lysves. Kada reikia tręsti, laistyti, purkįti nuo kenkėjų. Kiek derliaus surinkta.
 #
 # Duomenys
-#     • Vartotojas
+#     • Vartotojas:
 #         ◦ Vardas
 #         ◦ Pavardė
-#         ◦ telefonas
 #         ◦ el. paštas
-#         ◦ vietovė
-#     • daržas
+#     • daržas:
+#                 ◦ savininkas
 #         ◦ plotas arais
 #         ◦ užsodinta veislė
-#         ◦ pasodinimo data (pasėjimo)
 #         ◦ sodinimas iš sėklų
 #         ◦ sodinukų pikiavimas
 #         ◦ sodinukų perkėlimas į lysves
-#         ◦ kada tręšti
-#         ◦ kada laistyti (jei nelyja)
-#         ◦ kada purkšti nuo kenkėjų
-#         ◦ kada imti derlių
+#         ◦ tręšimas
+#         ◦ laistymas
+#         ◦ purškimas nuo kenkėjų
+#         ◦ derliaus nuėmimas
 #         ◦ pastabos
 #
-#     • veislė
-#         ◦ daržovių rūšies veislė (pavadinimas)
-#         ◦ veislės aprašymas
-#         ◦ reikalinga veislei vieta
-#         ◦ reikalinga žemė daržovių auginimui
-#         ◦ reikalingi įrankiai, įranga daržovėms auginti
-#         ◦ auginama šiltnamyje ir/ar tik lauke
+#     • veislė:
+#         ◦ pavadinimas
+#         ◦ aprašymas
+#         ◦ sėjos laikas
+#         ◦ veislės anktyvumas
+#         ◦ auga šiltnamyje ar lauke
+#         ◦ sėklų skaičius 1 grame
 #
 # Procesai
 #     • Veislės pasirinkimas
@@ -48,15 +46,10 @@
 #         ◦ Paspaudus mygtuką "redaguoti", atsidaro langas, identiškas įvedimo langui, bet jau su esamais duomenimis
 #         ◦ Duomenis galima pakeisti
 #         ◦ Paspaudus mygtuką "saugoti", duomenys išsaugomi.
-#     • Reikiamos žemės įvertinimas pagal rekomendacijas veislei
-#     • Įrankių paieška ir pasirinkimas:
-#         ◦ Pagrindiniame puslapyje rodomas įrankių sąrašas
-#         ◦ Sąrašą galima filtruoti pagal įvairius kriterijus: kategorija, jėgos šaltinis, kaina, pristatymas ir kita.
-#         ◦ Taip pat galima paieška pagal raktinius žodžius
-#     • Sodinukų pikiavimas
+#         • Sodinukų pikiavimas
 #         ◦ Naudotojui išsiunčiamas el.paštu priminimas, kad laikas pikiuoti.
 #     • Sodinukų perkėlimas į lysves
-#         ◦ Pasirenka datą ir laiką (rodomos galimos datos, tos datos, kuriomis palanku sodinti, tikrinamos orų prognozės)
+#         ◦ Pasirenka datą (rodomos galimos datos, tos datos, kuriomis palanku sodinti, tikrinamos orų prognozės)
 #     • Sodinukų trešimas
 #         ◦ Pagal trąšų gamintojų rekomendacijas, išsiunčiamas priminimas, kad laikas tręšti augalus
 #     • Sodinikų laistymas
